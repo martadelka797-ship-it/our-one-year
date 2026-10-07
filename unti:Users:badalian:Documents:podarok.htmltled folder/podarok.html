@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>One year of us</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #111;
+            color: #f5f1eb;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        section {
+            min-height: 100vh;
+            padding: 100px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .small-title {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(45px, 8vw, 100px);
+            line-height: 0.9;
+            letter-spacing: -4px;
+            margin-bottom: 50px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            border: 1px solid #777;
+            color: white;
+            background: transparent;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background: white;
+            color: #111;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        #hero {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            justify-content: flex-end;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.65;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.95),
+                    rgba(0, 0, 0, 0.15));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 8%;
+            padding-bottom: 80px;
+        }
+
+        .date {
+            color: #ccc;
+            letter-spacing: 4px;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .hero-title {
+            font-size: clamp(60px, 13vw, 180px);
+            line-height: 0.8;
+            letter-spacing: -8px;
+            max-width: 1100px;
+            margin-bottom: 35px;
+        }
+
+        .hero-text {
+            max-width: 500px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           STORY
+        ========================= */
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .story-image {
+            width: 100%;
+            max-height: 650px;
+            object-fit: cover;
+        }
+
+        .story-text {
+            color: #bbb;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           TIMELINE
+        ========================= */
+
+        .timeline {
+            max-width: 900px;
+            margin: auto;
+            width: 100%;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 30px;
+            padding: 45px 0;
+            border-top: 1px solid #333;
+        }
+
+        .timeline-date {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .timeline-item h3 {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .timeline-item p {
+            color: #aaa;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .timeline-item img {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 25px;
+            max-height: 450px;
+            object-fit: cover;
+        }
+
+        /* =========================
+           GALLERY
+        ========================= */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 7;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: span 4;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 8;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 6;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 6;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(8) {
+            grid-column: span 7;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* =========================
+           LIGHTBOX
+        ========================= */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 30px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* =========================
+           QUIZ
+        ========================= */
+
+        .quiz {
+            max-width: 700px;
+            margin: auto;
+            width: 100%;
+        }
+
+        .question {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .answers {
+            display: grid;
+            gap: 12px;
+        }
+
+        .answer {
+            padding: 18px;
+            background: transparent;
+            color: white;
+            border: 1px solid #444;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .answer:hover {
+            border-color: white;
+        }
+
+        .quiz-result {
+            margin-top: 25px;
+            min-height: 25px;
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            border: 1px solid #333;
+            padding: 40px;
+            cursor: pointer;
+            min-height: 180px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            background: #191919;
+        }
+
+        .card h3 {
+            font-size: 25px;
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.5s;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .card.open .card-content {
+            max-height: 200px;
+            margin-top: 20px;
+        }
+
+        /* =========================
+           THINGS I LOVE
+        ========================= */
+
+        .love-list {
+            max-width: 800px;
+            margin: auto;
+            width: 100%;
+        }
+
+        .love-item {
+            padding: 25px 0;
+            border-bottom: 1px solid #333;
+            font-size: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s;
+        }
+
+        .love-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           NUMBERS
+        ========================= */
+
+        .numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .number {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+        }
+
+        .number strong {
+            display: block;
+            font-size: clamp(50px, 7vw, 90px);
+            margin-bottom: 10px;
+        }
+
+        .number span {
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+        }
+
+        /* =========================
+           SECRET
+        ========================= */
+
+        .secret {
+            text-align: center;
+            align-items: center;
+        }
+
+        .secret-message {
+            max-width: 700px;
+            font-size: 20px;
+            line-height: 1.8;
+            color: #ccc;
+            display: none;
+            margin-top: 40px;
+        }
+
+        .secret-message.show {
+            display: block;
+            animation: fadeIn 1s;
+        }
+
+        /* =========================
+           FINAL
+        ========================= */
+
+        #final {
+            text-align: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .final-title {
+            font-size: clamp(55px, 11vw, 150px);
+            line-height: 0.85;
+            letter-spacing: -6px;
+        }
+
+        .final-heart {
+            font-size: 50px;
+            margin: 40px 0;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            section {
+                padding: 80px 6%;
+            }
+
+            .hero-content {
+                padding: 6%;
+                padding-bottom: 60px;
+            }
+
+            .hero-title {
+                letter-spacing: -4px;
+            }
+
+            h2 {
+                letter-spacing: -2px;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .timeline-item h3 {
+                font-size: 27px;
+            }
+
+            .gallery {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                grid-column: span 1 !important;
+            }
+
+            .gallery img {
+                height: 400px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .numbers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .number strong {
+                font-size: 55px;
+            }
+
+            .love-item {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+     HERO
+========================================================= -->
+
+    <section id="hero">
+
+        <!-- EDIT HERE: replace hero.jpg with your photo -->
+        <img class="hero-image" src="https://i.pinimg.com/736x/be/76/e1/be76e155b24099a52fe085305cfa5b48.jpg"
+            alt="Our photo">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <!-- EDIT HERE -->
+            <div class="date" id="anniversaryDate">
+                06.10.2025 — 06.10.2026
+            </div>
+
+            <!-- EDIT HERE -->
+            <h1 class="hero-title" id="heroTitle">
+                Один год<br>Вместе
+            </h1>
+
+            <!-- EDIT HERE -->
+            <p class="hero-text" id="heroText">
+                365 дней, десятки воспоминаний и,
+                один человек которого я бы выбрала снова.
+            </p>
+
+            <a href="#story" class="button">
+                Начать нашу историю ↓
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     STORY
+========================================================= -->
+
+    <section id="story">
+
+        <div class="story-grid reveal">
+
+            <div>
+
+                <!-- EDIT HERE -->
+                <img class="story-image" src="https://i.postimg.cc/JzzGyycK/IMG-1918.jpg" alt="Our story">
+
+            </div>
+
+            <div>
+
+                <div class="small-title">
+                   
+                </div>
+
+                <!-- EDIT HERE -->
+                <h2>
+                    Как это <br>начиналось
+                </h2>
+
+                <!-- EDIT HERE -->
+                <p class="story-text">
+                    Привет всем посетителям этого сайта, а конкретно Артемовне! Здесь я собрала все воспоминания
+                    воедино, чтобы освежить память и поблагодарить тебя за целый год вместе.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     TIMELINE
+========================================================= -->
+
+    <section id="timeline">
+
+        <div class="small-title">
+            02 / наш год
+        </div>
+
+        <h2 class="reveal">
+            365 дней
+        </h2>
+
+        <div class="timeline">
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+                    06.10.2025
+                </div>
+
+                <div>
+                    <h3>
+                        Начало
+                    </h3>
+
+                    <p>
+                        Этот день ровно год назад не отличался ничем примечательным, но кто же знал, что вечером я
+                        получу волнительное письмо с предложением стать чем-то большим, чем просто друзьями.
+                    </p>
+
+                    <img src="https://i.postimg.cc/59363q0w/IMG-7841.jpg" alt="">
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+                        Первое воспоминание
+                    </h3>
+
+                    <p>
+                        В этот день ты впервые предложил прогуляться вдвоем, под предлогом того что тебе нужна помощь, я
+                        с уверенностью согласилась не зная что ты задумал на самом деле.
+                    </p>
+
+                    <img src="https://i.postimg.cc/Twf8wbnL/IMG-0689.jpg" alt="Memory 2">
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+                        Будни с тобой
+                    </h3>
+
+                    <p>
+                        Одно из моих <span style="color: plum;">любимых</span> дел - это бездельничать с тобой, сидя под
+                        солнцем после работы или школы.
+                    </p>
+
+                    <img src="https://i.postimg.cc/Vv7P2NrJ/IMG-7837.jpg" alt="Memory 3">
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+
+                    </h3>
+
+                    <p>
+                        Или радоваться букетам которые ты подарил.
+                    </p>
+
+                    <img src="https://i.postimg.cc/3x0QbYK4/IMG-4948.jpg" alt="Memory 4">
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+
+                    </h3>
+
+                    <p>
+                        Возможно, наша рыбалка, целью которой никогда не было поймать рыбу. И не потому, что я фанат
+                        этого дела, - главной целью всегда было просто провести время вместе.
+                    </p>
+
+                    <img src="https://i.postimg.cc/mg1W6Bbb/IMG-4078.jpg" alt="Memory 5">
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+
+                    </h3>
+
+                    <p>
+                        И да, я рада тебя видеть даже тогда, когда ты приходишь будить меня.
+                    </p>
+
+                    <img src="https://i.postimg.cc/QMpGhmK9/IMG-3371.jpg" alt="One year">
+                </div>
+
+            </div>
+            <div class="timeline-item reveal">
+
+                <div class="timeline-date">
+
+                </div>
+
+                <div>
+                    <h3>
+
+                    </h3>
+
+                    <p>
+                        Или просто лежать в кровати
+                    </p>
+
+                    <img src="https://i.postimg.cc/15jZHf1W/IMG-6198.jpg" alt="Memory 5">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     GALLERY
+========================================================= -->
+
+    <section>
+
+        <div class="small-title">
+            03 / трип
+        </div>
+
+        <h2 class="reveal">
+            <br>Путешествия
+        </h2>
+
+        <div class="gallery reveal">
+
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/254RrGLk/IMG-1528.jpg" alt="Memory">
+
+
+
+            </div>
+            <h3>Лювен</h3>
+
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/DZnVZG1z/IMG-2268.jpg" alt="Memory">
+            </div>
+            <h3>Хэллоуин в Брюсселе</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/bvQcpgSX/IMG-2340.jpg" alt="Memory">
+            </div>
+            <h3>Остенде</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/X7Jbd9m1/IMG-3363.jpg" alt="Memory">
+            </div>
+            <h3>Париж</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/HW3mr6ZM/IMG-3885.jpg" alt="Memory">
+            </div>
+            <h3>Хорватия</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/qqWvvC3F/2026-10-06-18-48-09.jpg" alt="Memory">
+            </div>
+            <h3>Роттердам</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/xjZCRB42/2026-10-06-18-48-16.jpg" alt="Memory">
+            </div>
+            <h3>Австрия</h3>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/gjMb10Xk/IMG-7839.jpg" alt="Memory">
+            </div>
+            <h3>Где бы мы не были, мне никогда не будет скучно с тобой, даже если мы в <span
+                    style="color: rgb(255, 31, 31);">Стоккеме</span></h3>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     QUIZ
+========================================================= -->
+
+    <section>
+
+        <div class="quiz reveal">
+
+            <div class="small-title">
+
+            </div>
+
+            <h2>
+                Помнишь ли<br>ты?
+            </h2>
+
+            <div class="question" id="question">
+
+            </div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="quiz-result" id="quizResult">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     OUR LITTLE THINGS
+========================================================= -->
+
+    <section>
+
+        <div class="small-title">
+
+        </div>
+
+        <h2 class="reveal">
+            Связывающие<br>мелочи
+        </h2>
+
+        <div class="cards">
+
+            <!-- EDIT HERE -->
+
+            <div class="card reveal">
+
+                <h3>
+                    Песня: Из-за тебя
+            <br><br>
+
+                    <h3>Услышав её впервые, ты сказал, что тебе нравится сериал, в котором она звучит. Тогда мне пришлось послушать её десятки раз, а потом и сотни - так она и стала ассоциироваться с тобой.</h3>
+                </h3>
+
+                <div class="card-content">
+
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+            <div class="card reveal">
+
+                <h3>
+                    Место: Камни
+                    <br><br>
+
+                    <h3>Я выбрала именно это место, потому что как мне кажется в нем есть что-то особенное, или твое присутствие делает его таким.</h3>
+                </h3>
+
+                <div class="card-content">
+                    Я выбрала именно это место, потому что как мне кажется в нем есть что-то особенное, или твое присутствие делает его таким.
+                </div>
+
+            </div>
+
+
+            <!-- EDIT HERE -->
+
+
+
+
+            <!-- EDIT HERE -->
+
+            <div class="card reveal">
+
+                <h3>
+                    Любимая вещь в тебе: 
+                    <br><br>
+
+                    Инициатива, и настойчивость
+                </h3>
+
+                <div class="card-content">
+                    Write something you love about him.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     10 THINGS I LOVE
+========================================================= -->
+
+    <section>
+
+        <div class="love-list">
+
+            <div class="small-title">
+
+            </div>
+
+            <h2>
+                10 вещей<br>которые мне в тебе нравятся
+            </h2>
+
+            <div id="loveList"></div>
+
+            <button class="button" id="revealLove" type="button">
+                показать
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     SECRET MESSAGE
+========================================================= -->
+
+    <section class="secret">
+
+        <div class="small-title">
+            
+        </div>
+
+        <h2>
+            И еще<br>одно...
+        </h2>
+
+        <button class="button" id="openSecret" type="button">
+            открыть
+        </button>
+
+
+        <!-- EDIT HERE -->
+
+        <div class="secret-message" id="secretMessage">
+
+            Артемовна,
+
+            <br><br>
+
+            Один год позади - первый и, надеюсь, не последний. Спасибо, что провёл его со мной! В будущем мы посетим ещё не одну страну и будем радовать друг друга и дальше. Пусть бывает сложно и непросто, думаю, я ещё поборюсь. И даже если это когда-нибудь закончится, то точно не сегодня! 💘
+
+            <br><br>
+
+            
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+     FINAL
+========================================================= -->
+
+    <section id="final">
+
+        <div class="small-title">
+            
+        </div>
+
+        <div class="final-title">
+            На<br>память.
+        </div>
+
+        <div class="final-heart">
+            ♡
+        </div>
+
+        <p>
+            Впереди еще много интересного.
+        </p>
+
+        <br>
+
+        <p class="small-title">
+            С годовщиной.
+        </p>
+
+        <br>
+
+        <a href="#hero" class="button">
+            Начать снова ↑
+        </a>
+
+    </section>
+
+
+    <!-- =========================================================
+     LIGHTBOX
+========================================================= -->
+
+    <div class="lightbox" id="lightbox">
+
+        <div class="close-lightbox" id="closeLightbox">
+            ×
+        </div>
+
+        <img id="lightboxImage" src="" alt="Full size memory">
+
+    </div>
+
+
+    <!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+    <script>
+
+        /* =====================================================
+           QUIZ — EDIT YOUR QUESTIONS HERE
+        ===================================================== */
+
+        const quizQuestions = [
+
+            {
+                question: "Где было наше первое свидание?",
+                answers: [
+                    "В стоккеме",
+                    "На горе Вилледж",
+                    "В кафе"
+                ],
+                correct: 2
+            },
+
+            {
+                question: "С какой вещи мы всегда смеемся?",
+                answers: [
+                    "Мемы с тик тока",
+                    "Когда я похож на птенчика",
+                    "Рандом ситуация"
+                ],
+                correct: 1
+            },
+
+            {
+                question: "Кто первый влюбился?",
+                answers: [
+                    "я",
+                    "ты",
+                    "мы оба"
+                ],
+                correct: 2
+            }
+
+        ];
+
+
+        /* =====================================================
+           10 THINGS I LOVE — EDIT HERE
+        ===================================================== */
+
+        const thingsILove = [
+
+            "Твоя улыбка.",
+            "Позитив.",
+            "Твой запах.",
+            "Твой нос.",
+            "Открытость.",
+            "Нежность.",
+            "Вовлеченность.",
+            "Эмоциональность.",
+            "Щедрость.",
+            "В целом ...ты."
+
+        ];
+
+
+        /* =====================================================
+           QUIZ SYSTEM
+        ===================================================== */
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement =
+            document.getElementById("question");
+
+        const answersElement =
+            document.getElementById("answers");
+
+        const quizResult =
+            document.getElementById("quizResult");
+
+
+        function loadQuestion() {
+
+            if (currentQuestion >= quizQuestions.length) {
+
+                questionElement.innerHTML =
+                    "Ты хорошо нас знаешь ❤️";
+
+                answersElement.innerHTML = "";
+
+                quizResult.innerHTML =
+                    "Score: " +
+                    score +
+                    " / " +
+                    quizQuestions.length;
+
+                return;
+            }
+
+
+            const q =
+                quizQuestions[currentQuestion];
+
+
+            questionElement.innerHTML =
+                q.question;
+
+
+            answersElement.innerHTML = "";
+
+
+            q.answers.forEach((answer, index) => {
+
+                const button =
+                    document.createElement("button");
+
+                button.className =
+                    "answer";
+
+                button.innerHTML =
+                    answer;
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        if (index === q.correct) {
+
+                            score++;
+
+                            quizResult.innerHTML =
+                                "Правильно❤️";
+
+                        } else {
+
+                            quizResult.innerHTML =
+                                "Не-а 😭 Попробуй снова.";
+
+                            return;
+                        }
+
+
+                        currentQuestion++;
+
+                        setTimeout(function () {
+
+                            quizResult.innerHTML = "";
+
+                            loadQuestion();
+
+                        }, 700);
+
+                    }
+                );
+
+
+                answersElement.appendChild(button);
+
+            });
+
+        }
+
+
+        loadQuestion();
+
+
+        /* =====================================================
+           LITTLE CARDS
+        ===================================================== */
+
+        const cards =
+            document.querySelectorAll(".card");
+
+
+        cards.forEach(card => {
+
+            card.addEventListener("click", function () {
+
+                card.classList.toggle("open");
+
+            });
+
+        });
+
+
+        /* =====================================================
+           10 THINGS I LOVE
+        ===================================================== */
+
+        const loveList =
+            document.getElementById("loveList");
+
+        const revealButton =
+            document.getElementById("revealLove");
+
+        let loveIndex = 0;
+
+
+        thingsILove.forEach(function (text, index) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "love-item";
+
+            item.innerHTML =
+                (index + 1) + ". " + text;
+
+            loveList.appendChild(item);
+
+        });
+
+
+        revealButton.addEventListener(
+            "click",
+            function () {
+
+                const items =
+                    document.querySelectorAll(".love-item");
+
+
+                if (loveIndex < items.length) {
+
+                    items[loveIndex]
+                        .classList.add("visible");
+
+                    loveIndex++;
+
+                }
+
+
+                if (loveIndex >= items.length) {
+
+                    revealButton.innerHTML =
+                        "All revealed ❤️";
+
+                    revealButton.disabled =
+                        true;
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SECRET MESSAGE
+        ===================================================== */
+
+        const openSecret =
+            document.getElementById("openSecret");
+
+        const secretMessage =
+            document.getElementById("secretMessage");
+
+
+        openSecret.addEventListener(
+            "click",
+            function () {
+
+                secretMessage.classList.add("show");
+
+                openSecret.style.display =
+                    "none";
+
+            }
+        );
+
+
+        /* =====================================================
+           PHOTO LIGHTBOX
+        ===================================================== */
+
+        const galleryImages =
+            document.querySelectorAll(".gallery img");
+
+        const lightbox =
+            document.getElementById("lightbox");
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+        const closeLightbox =
+            document.getElementById("closeLightbox");
+
+
+        galleryImages.forEach(function (image) {
+
+            image.addEventListener(
+                "click",
+                function () {
+
+                    lightboxImage.src =
+                        image.src;
+
+                    lightbox.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        });
+
+
+        closeLightbox.addEventListener(
+            "click",
+            function () {
+
+                lightbox.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        lightbox.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === lightbox) {
+
+                    lightbox.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        const observer =
+            new IntersectionObserver(
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.15
+                }
+            );
+
+
+        revealElements.forEach(function (element) {
+
+            observer.observe(element);
+
+        });
+
+
+        /* =====================================================
+           ESCAPE CLOSE LIGHTBOX
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    lightbox.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
